@@ -6,6 +6,7 @@ http://www.positive-ryouritsu.jp/positivedb/
 項目定義
 
 項目名英語, 項目名日本語  
+row_number, 行番号  
 company_number, 企業番号  
 company_url, 企業URL  
 source_url, 取得元URL  
