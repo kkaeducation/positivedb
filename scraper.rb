@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'scraperwiki'
 
 # @page_from = 1
-# @page_to = 1
+# @page_to = 2
 @column_limit = 76 # Starting at 0
 @html_fields = nil
 @database_fields = nil
@@ -23,90 +23,91 @@ end
 def init_field_setting
   field_array = [
   #  [fieldname, html_column_position, database_column_position]
-    [:company_number, nil, 1],
-    [:company_url, nil, 2],
-    [:source_url, nil, 3],
-    [:company_name, 1, 4],
-    [:general_employer_action_plan, 2, 5],
-    [:general_employer_action_plan_only, nil, 6],
-    [:company_certification, 3, 7],
-    [:company_certification1, 4, 8],
-    [:company_certification2, 5, 9],
-    [:company_certification3, 6, 10],
-    [:company_certification4, 7, 11],
-    [:company_certification5, 8, 12],
-    [:company_certification6, 9, 13],
-    [:industry, 10, 14],
-    [:company_size, 11, 15],
-    [:prefectures, 12, 16],
-    [:female_recruitment_job, 13, 17],
-    [:female_recruitment_rate, 14, 18],
-    [:female_recruitment_unit, 15, 19],
-    [:female_recruitment_note, 16, 20],
-    [:competitive_ratio_type, 17, 21],
-    [:competitive_ratio_job, 18, 22],
-    [:competitive_ratio_male, 19, 23],
-    [:competitive_ratio_male_unit, 20, 24],
-    [:competitive_ratio_female, 21, 25],
-    [:competitive_ratio_female_unit, 22, 26],
-    [:competitive_ratio_male_and_female, nil, 27],
-    [:competitive_ratio_note, 23, 28],
-    [:female_job, 24, 29],
-    [:female_ratio, 25, 30],
-    [:female_ratio_unit, 26, 31],
-    [:female_note, 27, 32],
-    [:years_of_service_type, 28, 33],
-    [:years_of_service_job, 29, 34],
-    [:years_of_service_male, 30, 35],
-    [:years_of_service_male_unit, 31, 36],
-    [:years_of_service_female, 32, 37],
-    [:years_of_service_female_unit, 33, 38],
-    [:years_of_service_male_and_female, nil, 39],
-    [:years_of_service_male_and_female_unit, nil, 40],
-    [:years_of_service_note, 34, 41],
-    [:childcare_leave_type, 35, 42],
-    [:childcare_leave_job, 36, 43],
-    [:childcare_leave_male, 37, 44],
-    [:childcare_leave_male_unit, 38, 45],
-    [:childcare_leave_female, 39, 46],
-    [:childcare_leave_female_unit, 40, 47],
-    [:childcare_leave_note, 41, 48],
-    [:overtime_job, 42, 49],
-    [:overtime, 43, 50],
-    [:overtime_unit, 44, 51],
-    [:overtime_effort, 45, 52],
-    [:overtime_note, 46, 53],
-    [:paid_vacation_job, 47, 54],
-    [:paid_vacation_utilization_rate, 48, 55],
-    [:paid_vacation_utilization_rate_unit, 49, 56],
-    [:paid_vacation_note, 50, 57],
-    [:cief_ratio, 51, 58],
-    [:chief_rate_unit, 52, 59],
-    [:chief_note, 53, 60],
-    [:manager_ratio, 54, 61],
-    [:manager_rate_unit, 55, 62],
-    [:manager_note, 56, 63],
-    [:officer_ratio, 57, 64],
-    [:officer_ratio_unit, 58, 65],
-    [:officer_note, 59, 66],
-    [:reshuffling_job, 60, 67],
-    [:reshuffling_content, 61, 68],
-    [:reshuffling_male, 62, 69],
-    [:reshuffling_male_unit, 63, 70],
-    [:reshuffling_female, 64, 71],
-    [:reshuffling_female_unit, 65, 72],
-    [:reshuffling_note, 66, 73],
-    [:reemployment, 67, 74],
-    [:reemployment_male, 68, 75],
-    [:reemployment_male_unit, 69, 76],
-    [:reemployment_female, 70, 77],
-    [:reemployment_female_unit, 71, 78],
-    [:reemployment_note, 72, 79],
-    [:object_of_data, 73, 80],
-    [:object_of_data_note, 74, 81],
-    [:updated_at, 75, 82],
-    [:updated_at_note, 76, 83],
-    [:note, 77, 84]
+    [:row_number, nil, 1],
+    [:company_number, nil, 2],
+    [:company_url, nil, 3],
+    [:source_url, nil, 4],
+    [:company_name, 1, 5],
+    [:general_employer_action_plan, 2, 6],
+    [:general_employer_action_plan_only, nil, 7],
+    [:company_certification, 3, 8],
+    [:company_certification1, 4, 9],
+    [:company_certification2, 5, 10],
+    [:company_certification3, 6, 11],
+    [:company_certification4, 7, 12],
+    [:company_certification5, 8, 13],
+    [:company_certification6, 9, 14],
+    [:industry, 10, 15],
+    [:company_size, 11, 16],
+    [:prefectures, 12, 17],
+    [:female_recruitment_job, 13, 18],
+    [:female_recruitment_rate, 14, 19],
+    [:female_recruitment_unit, 15, 20],
+    [:female_recruitment_note, 16, 21],
+    [:competitive_ratio_type, 17, 22],
+    [:competitive_ratio_job, 18, 23],
+    [:competitive_ratio_male, 19, 24],
+    [:competitive_ratio_male_unit, 20, 25],
+    [:competitive_ratio_female, 21, 26],
+    [:competitive_ratio_female_unit, 22, 27],
+    [:competitive_ratio_male_and_female, nil, 28],
+    [:competitive_ratio_note, 23, 29],
+    [:female_job, 24, 30],
+    [:female_ratio, 25, 31],
+    [:female_ratio_unit, 26, 32],
+    [:female_note, 27, 33],
+    [:years_of_service_type, 28, 34],
+    [:years_of_service_job, 29, 35],
+    [:years_of_service_male, 30, 36],
+    [:years_of_service_male_unit, 31, 37],
+    [:years_of_service_female, 32, 38],
+    [:years_of_service_female_unit, 33, 39],
+    [:years_of_service_male_and_female, nil, 40],
+    [:years_of_service_male_and_female_unit, nil, 41],
+    [:years_of_service_note, 34, 42],
+    [:childcare_leave_type, 35, 43],
+    [:childcare_leave_job, 36, 44],
+    [:childcare_leave_male, 37, 45],
+    [:childcare_leave_male_unit, 38, 46],
+    [:childcare_leave_female, 39, 47],
+    [:childcare_leave_female_unit, 40, 48],
+    [:childcare_leave_note, 41, 49],
+    [:overtime_job, 42, 50],
+    [:overtime, 43, 51],
+    [:overtime_unit, 44, 52],
+    [:overtime_effort, 45, 53],
+    [:overtime_note, 46, 54],
+    [:paid_vacation_job, 47, 55],
+    [:paid_vacation_utilization_rate, 48, 56],
+    [:paid_vacation_utilization_rate_unit, 49, 57],
+    [:paid_vacation_note, 50, 58],
+    [:cief_ratio, 51, 59],
+    [:chief_rate_unit, 52, 60],
+    [:chief_note, 53, 61],
+    [:manager_ratio, 54, 62],
+    [:manager_rate_unit, 55, 63],
+    [:manager_note, 56, 64],
+    [:officer_ratio, 57, 65],
+    [:officer_ratio_unit, 58, 66],
+    [:officer_note, 59, 67],
+    [:reshuffling_job, 60, 68],
+    [:reshuffling_content, 61, 69],
+    [:reshuffling_male, 62, 70],
+    [:reshuffling_male_unit, 63, 71],
+    [:reshuffling_female, 64, 72],
+    [:reshuffling_female_unit, 65, 73],
+    [:reshuffling_note, 66, 74],
+    [:reemployment, 67, 75],
+    [:reemployment_male, 68, 76],
+    [:reemployment_male_unit, 69, 77],
+    [:reemployment_female, 70, 78],
+    [:reemployment_female_unit, 71, 79],
+    [:reemployment_note, 72, 80],
+    [:object_of_data, 73, 81],
+    [:object_of_data_note, 74, 82],
+    [:updated_at, 75, 83],
+    [:updated_at_note, 76, 84],
+    [:note, 77, 85]
   ]
 
   fields = []
@@ -162,7 +163,7 @@ def get_value_from_td(td)
 end
 
 def scrape_page(doc, source_url)
-  doc.xpath("//*[@id='table']/table//tr[position() >= 4]").each do |tr|
+  doc.xpath("//*[@id='table']/table//tr[position() >= 4]").each_with_index do |tr, i|
     column_position = 0
     years_of_service_male_and_female_flag = false
     company_url = tr.search(".//td//a[1]").attribute("href").text
@@ -172,9 +173,13 @@ def scrape_page(doc, source_url)
     @database_fields.each do |field|
       row.store(field, nil)
     end
-    row.store(:company_number, company_number)
-    row.store(:company_url, company_url)
-    row.store(:source_url, source_url)
+
+    row.merge!({
+      row_number: i + 1,
+      company_number: company_number,
+      company_url: company_url,
+      source_url: source_url
+    })
 
     tr.search(".//td").each do |td|
       colspan_attribute = td.attribute("colspan")
@@ -198,7 +203,7 @@ def scrape_page(doc, source_url)
       row.store(field, value)
       column_position += colspan
     end
-    ScraperWiki.save_sqlite([:company_url], row)
+    ScraperWiki.save_sqlite([:row_number], row)
   end
 end
 
