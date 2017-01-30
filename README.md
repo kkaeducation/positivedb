@@ -24,7 +24,7 @@ industry, 業種
 company_size, 企業規模  
 prefectures, 都道府県  
 female_recruitment_job, 女性採用_職種  
-female_recruitment_rate, 女性採用_割合  
+female_recruitment_ratio, 女性採用_割合  
 female_recruitment_unit, 女性採用_単位  
 female_recruitment_note, 女性採用_注  
 competitive_ratio_type, 競争倍率_区分  
@@ -64,11 +64,11 @@ paid_vacation_job, 有給休暇_職種
 paid_vacation_utilization_rate, 有給休暇_取得率  
 paid_vacation_utilization_rate_unit, 有給休暇_取得率_単位  
 paid_vacation_note, 有給休暇_注  
-cief_ratio, 係長_割合  
-chief_rate_unit, 係長_割合_単位  
+chief_ratio, 係長_割合  
+chief_ratio_unit, 係長_割合_単位  
 chief_note, 係長_注  
 manager_ratio, 管理職_割合  
-manager_rate_unit, 管理職_割合_単位  
+manager_ratio_unit, 管理職_割合_単位  
 manager_note, 管理職_注  
 officer_ratio, 役員_割合  
 officer_ratio_unit, 役員_割合_単位  
