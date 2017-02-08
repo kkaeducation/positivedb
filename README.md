@@ -1,5 +1,7 @@
 This is a scraper that runs on [Morph](https://morph.io). To get started [see the documentation](https://morph.io/documentation)
 
+出展:「女性の活躍推進企業データベース」（厚生労働省）（ http://www.positive-ryouritsu.jp/positivedb/ ）を加工して作成。
+
 女性の活躍推進企業データベース | トップ  
 http://www.positive-ryouritsu.jp/positivedb/
 
