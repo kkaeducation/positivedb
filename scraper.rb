@@ -4,7 +4,7 @@ require 'scraperwiki'
 
 # @page_from = 1
 # @page_to = 2
-@column_limit = 76 # Starting at 0
+@column_limit = 77 # Starting at 0
 @row_number = 1
 @html_fields = nil
 @database_fields = nil
@@ -24,20 +24,21 @@ end
 def init_field_setting
   field_array = [
   #  [fieldname, html_column_position, database_column_position]
-    [:row_number, nil, 1],
-    [:company_number, nil, 2],
-    [:company_url, nil, 3],
-    [:source_url, nil, 4],
-    [:company_name, 1, 5],
-    [:general_employer_action_plan, 2, 6],
-    [:general_employer_action_plan_only, nil, 7],
-    [:company_certification, 3, 8],
-    [:company_certification1, 4, 9],
-    [:company_certification2, 5, 10],
-    [:company_certification3, 6, 11],
-    [:company_certification4, 7, 12],
-    [:company_certification5, 8, 13],
-    [:company_certification6, 9, 14],
+    [:row_number, nil, 0],
+    [:company_number, nil, 1],
+    [:company_url, nil, 2],
+    [:source_url, nil, 3],
+    [:company_name, 0, 4],
+    [:general_employer_action_plan, 1, 5],
+    [:general_employer_action_plan_only, nil, 6],
+    [:company_certification, 2, 7],
+    [:company_certification1, 3, 8],
+    [:company_certification2, 4, 9],
+    [:company_certification3, 5, 10],
+    [:company_certification4, 6, 11],
+    [:company_certification5, 7, 12],
+    [:company_certification6, 8, 13],
+    [:company_certification_kinto_ryoritsu, 9, 14],
     [:industry, 10, 15],
     [:company_size, 11, 16],
     [:prefectures, 12, 17],
@@ -182,7 +183,7 @@ def scrape_page(doc, source_url)
       source_url: source_url
     })
 
-    tr.search(".//td").each do |td|
+    tr.search(".//td").each_with_index do |td, i|
       colspan_attribute = td.attribute("colspan")
       colspan = colspan_attribute.nil? ? 1 : colspan_attribute.value.to_i
       colspan = 1 if colspan == 0
@@ -190,14 +191,18 @@ def scrape_page(doc, source_url)
       field = @html_fields[column_position]
       value = get_value_from_td(td)
 
-      if column_position == 12 and colspan == 99
+      if column_position == 13 and colspan == 99
+#      if field == :female_recruitment_job and colspan == 99
         field = :general_employer_action_plan_only
-      elsif column_position == 18 and colspan == 4
+      elsif column_position == 19 and colspan == 4
+#      elsif field == :competitive_ratio_male and colspan == 4
         field = :competitive_ratio_male_and_female
-      elsif column_position == 29 and colspan == 3
+      elsif column_position == 30 and colspan == 3
+#      elsif field == :years_of_service_male and colspan == 3
         field = :years_of_service_male_and_female
         years_of_service_male_and_female_flag = true
-      elsif column_position == 32 and years_of_service_male_and_female_flag
+      elsif column_position == 33 and years_of_service_male_and_female_flag
+#      elsif field == :years_of_service_female_unit and years_of_service_male_and_female_flag
         field = :years_of_service_male_and_female_unit
       end
 
@@ -207,6 +212,8 @@ def scrape_page(doc, source_url)
     ScraperWiki.save_sqlite([:row_number], row)
     @row_number += 1
   end
+  rescue Exception => e
+    puts "Exception (#{e.inspect}) raised scrape_page (#{source_url.inspect}). Backtrace:\n#{e.backtrace}"
 end
 
 init_page_setting
