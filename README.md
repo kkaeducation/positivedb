@@ -22,7 +22,7 @@ company\_certification3, 企業認定等3
 company\_certification4, 企業認定等4  
 company\_certification5, 企業認定等5  
 company\_certification6, 企業認定等6  
-company_certification_kinto_ryoritsu, 均等・両立推進企業表彰  
+company\_certification\_kinto\_ryoritsu, 均等・両立推進企業表彰  
 industry, 業種  
 company\_size, 企業規模  
 prefectures, 都道府県  
