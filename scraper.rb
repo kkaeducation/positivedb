@@ -191,18 +191,14 @@ def scrape_page(doc, source_url)
       field = @html_fields[column_position]
       value = get_value_from_td(td)
 
-      if column_position == 13 and colspan == 99
-#      if field == :female_recruitment_job and colspan == 99
+      if field == :female_recruitment_job and colspan == 99
         field = :general_employer_action_plan_only
-      elsif column_position == 19 and colspan == 4
-#      elsif field == :competitive_ratio_male and colspan == 4
+      elsif field == :competitive_ratio_male and colspan == 4
         field = :competitive_ratio_male_and_female
-      elsif column_position == 30 and colspan == 3
-#      elsif field == :years_of_service_male and colspan == 3
+      elsif field == :years_of_service_male and colspan == 3
         field = :years_of_service_male_and_female
         years_of_service_male_and_female_flag = true
-      elsif column_position == 33 and years_of_service_male_and_female_flag
-#      elsif field == :years_of_service_female_unit and years_of_service_male_and_female_flag
+      elsif field == :years_of_service_female_unit and years_of_service_male_and_female_flag
         field = :years_of_service_male_and_female_unit
       end
 
