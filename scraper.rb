@@ -165,7 +165,7 @@ def get_value_from_td(td)
 end
 
 def scrape_page(doc, source_url)
-  doc.xpath("//*[@id='table']/table//tr[position() >= 4]").each do |tr|
+  doc.xpath("//*[@id='table']/table//tr[position() >= 5]").each do |tr|
     column_position = 0
     years_of_service_male_and_female_flag = false
     company_url = tr.search(".//td//a[1]").attribute("href").text
